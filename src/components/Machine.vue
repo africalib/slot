@@ -53,7 +53,7 @@ onBeforeMount(() => {
   <div :class="{ 'alone': !globalStore.category }" class="machine">
     <div class="wrapper">
       <h1 class="display-5 fw-bold text-body-emphasis lh-1">
-        <router-link to="/">😎 SLOT</router-link>
+        <router-link :to="`${settings.baseDir}/`">😎 SLOT</router-link>
       </h1>
       <h2>RANDOM WORD PICKER</h2>
       <div class="buttons gap-2">
