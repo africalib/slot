@@ -35,8 +35,9 @@ const run = () => {
 
 watch(() => route.query.category, (category) => {
       select(category);
-    },
-    {immediate: true}
+    }, {
+      immediate: true
+    }
 );
 
 onBeforeMount(() => {
@@ -129,7 +130,7 @@ onBeforeMount(() => {
             }
 
             &.category {
-              transition: width 0.25s;
+              transition: width var(--transition-time);
 
               &.active {
                 width: calc(100% - var(--px60));
@@ -145,7 +146,7 @@ onBeforeMount(() => {
             }
 
             &.run {
-              transition: right 0.25s;
+              transition: right var(--transition-time);
               position: absolute;
               top: 0;
               right: var(--px-50);

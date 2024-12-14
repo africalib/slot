@@ -116,7 +116,21 @@ body {
     --px98: 6.125rem;
     --px99: 6.1875rem;
     --px100: 6.25rem;
+    --px192: 12rem;
+    --px208: 13rem;
+    --px240: 15rem;
     --px320: 20rem;
+    --px400: 25rem;
 
     --px-50: -3.125rem;
+    --px-192: -12rem;
+    --px-208: -13rem;
+    --px-240: -15rem;
+    --px-320: -20rem;
+    --px-400: -25rem;
+
+    --left-width: var(--px208);
+    --left-width-reverse: var(--px-208);
+
+    --transition-time: 0.5s;
 }

@@ -11,8 +11,8 @@ const setFrameStyle = () => {
   globalStore.setFrameStyle({
     display: "block",
     top: rect.top + "px",
-    left: rect.left + "px",
-    width: rect.width + "px",
+    left: 0,
+    width: "100%",
     height: rect.height + "px",
   });
 };
@@ -35,10 +35,6 @@ onBeforeMount(() => {
 onMounted(() => {
   load();
 });
-
-window.onresize = () => {
-  setFrameStyle();
-};
 </script>
 
 <template>
@@ -46,9 +42,7 @@ window.onresize = () => {
     <div :style="globalStore.frame.style" class="frame"></div>
     <div ref="itemsRef" class="items">
       <div :style="globalStore.items.style" class="wrapper">
-        <div v-for="(w, idx) in globalStore.words" :class="{pick: idx === globalStore.pick.index}" class="item">
-          {{ w }}
-        </div>
+        <div v-for="(w, idx) in globalStore.words" :class="{pick: idx === globalStore.pick.index}" class="item">{{ w }}</div>
       </div>
     </div>
   </div>
@@ -57,6 +51,7 @@ window.onresize = () => {
 <style lang="scss" scoped>
 .words {
   height: 100%;
+  position: relative;
 
   .items {
     height: 100%;
@@ -84,7 +79,7 @@ window.onresize = () => {
   }
 
   .frame {
-    position: fixed;
+    position: absolute;
     border: var(--px10) solid #008551;
     border-radius: 4px;
     opacity: 1;

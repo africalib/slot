@@ -56,7 +56,7 @@ export const useGlobalStore = defineStore("counter", {
                 resistance: 0,
             };
 
-            const stopCount = random(0, this.words.length - 1) + random(0, this.words.length - 1); // 멈출 숫자(+랜덤)
+            const stopCount = this.words.length + random(0, this.words.length - 1); // 멈출 숫자(+랜덤)
 
             const toNumber = (value) => {
                 return Number.parseFloat(value.toString().replace("px", ""));
@@ -77,8 +77,7 @@ export const useGlobalStore = defineStore("counter", {
                         }
                     };
 
-                    this.spin.running &&
-                    requestAnimationFrame(animate);
+                    this.spin.running && requestAnimationFrame(animate);
                 });
             };
 
