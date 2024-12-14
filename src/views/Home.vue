@@ -11,9 +11,9 @@ const globalStore = useGlobalStore();
     <div class="wrapper">
       <div class="inner">
         <div class="header">
-          <a v-if="globalStore.category" href="/">
-            <img src="/icons/back.png"/>
-          </a>
+          <router-link to="./" v-if="globalStore.category">
+            <img :src="`./icons/back.png`"/>
+          </router-link>
         </div>
         <div class="row flex-row">
           <div :class="{ 'col-3': globalStore.category }">

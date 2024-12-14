@@ -12,6 +12,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         {path: "/", component: Home},
+        {path: "/slot", component: Home},
     ],
 });
 

@@ -2,11 +2,12 @@
 import {useGlobalStore} from "@/stores/globalStore.js";
 import categories from "@/data/categories.js";
 import words from "@/data/words.js";
-import {onBeforeMount} from "vue";
+import {onBeforeMount, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 
 const globalStore = useGlobalStore();
 const router = useRouter();
+const route = useRoute();
 
 const shuffle = (arr) => {
   for (let i = arr.length - 1; i > 0; i--) {
@@ -17,21 +18,33 @@ const shuffle = (arr) => {
   return arr;
 };
 
-const select = (category) => {
+const push = (category) => {
   router.push({query: {category}});
+};
 
+const select = (category = "") => {
   globalStore.reset();
   globalStore.setCategory(category);
-  globalStore.setWords(shuffle(JSON.parse(JSON.stringify(words[category]))));
+  category && globalStore.setWords(shuffle(JSON.parse(JSON.stringify(words[category]))));
 };
 
 const run = () => {
   globalStore.run();
 };
 
+watch(() => route.query.category, (category) => {
+       select(category);
+    },
+    {immediate: true}
+);
+
 onBeforeMount(() => {
-  const category = useRoute().query.category;
-  category && select(category);
+  const category = route.query.category;
+
+  if (category) {
+    push(category);
+    select(category);
+  }
 });
 </script>
 
@@ -39,18 +52,18 @@ onBeforeMount(() => {
   <div :class="{ 'alone': !globalStore.category }" class="machine">
     <div class="wrapper">
       <h1 class="display-5 fw-bold text-body-emphasis lh-1">
-        <a href="/">😎 SLOT</a>
+        <router-link to="/">😎 SLOT</router-link>
       </h1>
       <h2>RANDOM WORD PICKER</h2>
       <div class="buttons gap-2">
         <div v-for="c in categories" class="wrapper">
           <div class="inner">
-            <button :class="[globalStore.category === c.name ? 'btn-success active': 'btn-dark']" :disabled="globalStore.category === c.name && globalStore.spin.running" class="category btn btn-lg px-4" type="button" @click="select(c.name)">
-              <img :src="`/icons/${c.icon}`"/>
+            <button :class="[globalStore.category === c.name ? 'btn-success active': 'btn-dark']" :disabled="globalStore.category === c.name && globalStore.spin.running" class="category btn btn-lg px-4" type="button" @click="push(c.name)">
+              <img :src="`./icons/${c.icon}`"/>
               <span>{{ c.title }}</span>
             </button>
             <button :disabled="globalStore.spin.running" class="btn btn-success run text-center" @click="run()">
-              <img src="/icons/play.png"/>
+              <img :src="`./icons/play.png`"/>
             </button>
           </div>
         </div>
