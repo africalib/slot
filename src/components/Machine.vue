@@ -33,7 +33,7 @@ const run = () => {
 };
 
 watch(() => route.query.category, (category) => {
-       select(category);
+      select(category);
     },
     {immediate: true}
 );
