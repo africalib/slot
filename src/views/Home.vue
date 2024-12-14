@@ -2,6 +2,7 @@
 import Words from "@/components/Words.vue";
 import Machine from "@/components/Machine.vue";
 import {useGlobalStore} from "@/stores/globalStore.js";
+import settings from "@/data/settings.js";
 
 const globalStore = useGlobalStore();
 </script>
@@ -11,8 +12,8 @@ const globalStore = useGlobalStore();
     <div class="wrapper">
       <div class="inner">
         <div class="header">
-          <router-link to="./" v-if="globalStore.category">
-            <img :src="`./icons/back.png`"/>
+          <router-link :to="`${settings.baseDir}/`" v-if="globalStore.category">
+            <img :src="`${settings.baseDir}/icons/back.png`"/>
           </router-link>
         </div>
         <div class="row flex-row">

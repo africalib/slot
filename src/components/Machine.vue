@@ -4,6 +4,7 @@ import categories from "@/data/categories.js";
 import words from "@/data/words.js";
 import {onBeforeMount, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
+import settings from "@/data/settings.js";
 
 const globalStore = useGlobalStore();
 const router = useRouter();
@@ -59,11 +60,11 @@ onBeforeMount(() => {
         <div v-for="c in categories" class="wrapper">
           <div class="inner">
             <button :class="[globalStore.category === c.name ? 'btn-success active': 'btn-dark']" :disabled="globalStore.category === c.name && globalStore.spin.running" class="category btn btn-lg px-4" type="button" @click="push(c.name)">
-              <img :src="`./icons/${c.icon}`"/>
+              <img :src="`${settings.baseDir}/icons/${c.icon}`"/>
               <span>{{ c.title }}</span>
             </button>
             <button :disabled="globalStore.spin.running" class="btn btn-success run text-center" @click="run()">
-              <img :src="`./icons/play.png`"/>
+              <img :src="`${settings.baseDir}/icons/play.png`"/>
             </button>
           </div>
         </div>
