@@ -14,9 +14,9 @@ export default [
         title: "활동",
         icon: "activity.png"
     },
-    {
-        name: "mention",
-        title: "말",
-        icon: "mention.png"
-    }
-]
+    // {
+    //     name: "mention",
+    //     title: "말",
+    //     icon: "mention.png"
+    // }
+];

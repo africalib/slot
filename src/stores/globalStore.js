@@ -90,7 +90,7 @@ export const useGlobalStore = defineStore("counter", {
             this.spin.running = true;
 
             for (let i = 0; i < stopCount; i++) {
-                speed.resistance = Math.floor(speed.spin * (i + 1) / stopCount);
+                speed.resistance = Math.floor(speed.spin * (i + 1) / stopCount) - 1;
                 await execute();
             }
 
