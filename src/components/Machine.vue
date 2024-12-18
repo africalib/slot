@@ -28,7 +28,7 @@ const select = (category = "") => {
   globalStore.setCategory(category);
 
   if (category) {
-    globalStore.playAudio();
+    globalStore.playFlipAudio();
     globalStore.setWords(shuffle(JSON.parse(JSON.stringify(words[category]))));
   }
 };

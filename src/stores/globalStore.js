@@ -3,7 +3,8 @@ import {defineStore} from "pinia";
 export const useGlobalStore = defineStore("counter", {
     state: () => ({
         refs: {
-            audio: null,
+            flipAudio: null,
+            drumAudio: null,
         },
         spin: {
             running: false,
@@ -44,26 +45,44 @@ export const useGlobalStore = defineStore("counter", {
         reset() {
             this.items.style.marginTop = 0;
             this.spin.running = false;
-            this.stopAudio();
+            this.stopFlipAudio();
+            this.stopDrumAudio();
         },
-        setAudioRef(ref) {
-            this.refs.audio = ref;
+        setFlipAudioRef(ref) {
+            this.refs.flipAudio = ref;
         },
-        playAudio() {
-            if (!this.refs.audio) {
+        setDrumAudioRef(ref) {
+            this.refs.drumAudio = ref;
+        },
+        playFlipAudio() {
+            if (!this.refs.flipAudio) {
                 return;
             }
 
-            this.stopAudio();
-            this.refs.audio.play().catch();
+            this.refs.flipAudio.play().catch();
         },
-        stopAudio() {
-            if (!this.refs.audio) {
+        stopFlipAudio() {
+            if (!this.refs.flipAudio) {
                 return;
             }
 
-            this.refs.audio.pause();
-            this.refs.audio.currentTime = 0;
+            this.refs.flipAudio.pause();
+            this.refs.flipAudio.currentTime = 0;
+        },
+        playDrumAudio() {
+            if (!this.refs.drumAudio) {
+                return;
+            }
+
+            this.refs.drumAudio.play().catch();
+        },
+        stopDrumAudio() {
+            if (!this.refs.drumAudio) {
+                return;
+            }
+
+            this.refs.drumAudio.pause();
+            this.refs.drumAudio.currentTime = 0;
         },
         async run() {
             const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -115,9 +134,14 @@ export const useGlobalStore = defineStore("counter", {
             for (let i = 0; i < stopCount; i++) {
                 speed.resistance = Math.floor(speed.spin * (i + 1) / stopCount) - 1;
 
-                this.playAudio();
+                this.playFlipAudio();
                 await execute();
-                i !== stopCount - 1 && this.stopAudio();
+
+                if (i === stopCount - 1) {
+                    this.playDrumAudio();
+                } else {
+                    this.stopFlipAudio();
+                }
             }
 
             this.spin.running = false;

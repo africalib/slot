@@ -11,10 +11,12 @@ const state = reactive({
   both: false,
 });
 
-const audioRef = ref();
+const flipAudioRef = ref();
+const drumAudioRef = ref();
 
 onMounted(() => {
-  globalStore.setAudioRef(audioRef);
+  globalStore.setFlipAudioRef(flipAudioRef);
+  globalStore.setDrumAudioRef(drumAudioRef);
 });
 
 watch(() => globalStore.category, (category) => {
@@ -43,8 +45,11 @@ watch(() => globalStore.category, (category) => {
         </div>
       </div>
     </div>
-    <audio ref="audioRef">
-      <source src="/sound.mp3" type="audio/mpeg">
+    <audio ref="flipAudioRef">
+      <source src="/audios/flip.mp3" type="audio/mpeg">
+    </audio>
+    <audio ref="drumAudioRef">
+      <source src="/audios/drum.mp3" type="audio/mpeg">
     </audio>
   </div>
 </template>
