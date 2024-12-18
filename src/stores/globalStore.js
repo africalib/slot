@@ -4,7 +4,7 @@ export const useGlobalStore = defineStore("counter", {
     state: () => ({
         refs: {
             flipAudio: null,
-            drumAudio: null,
+            bellAudio: null,
         },
         spin: {
             running: false,
@@ -46,13 +46,13 @@ export const useGlobalStore = defineStore("counter", {
             this.items.style.marginTop = 0;
             this.spin.running = false;
             this.stopFlipAudio();
-            this.stopDrumAudio();
+            this.stopBellAudio();
         },
         setFlipAudioRef(ref) {
             this.refs.flipAudio = ref;
         },
-        setDrumAudioRef(ref) {
-            this.refs.drumAudio = ref;
+        setBellAudioRef(ref) {
+            this.refs.bellAudio = ref;
         },
         playFlipAudio() {
             if (!this.refs.flipAudio) {
@@ -69,20 +69,20 @@ export const useGlobalStore = defineStore("counter", {
             this.refs.flipAudio.pause();
             this.refs.flipAudio.currentTime = 0;
         },
-        playDrumAudio() {
-            if (!this.refs.drumAudio) {
+        playBellAudio() {
+            if (!this.refs.bellAudio) {
                 return;
             }
 
-            this.refs.drumAudio.play().catch();
+            this.refs.bellAudio.play().catch();
         },
-        stopDrumAudio() {
-            if (!this.refs.drumAudio) {
+        stopBellAudio() {
+            if (!this.refs.bellAudio) {
                 return;
             }
 
-            this.refs.drumAudio.pause();
-            this.refs.drumAudio.currentTime = 0;
+            this.refs.bellAudio.pause();
+            this.refs.bellAudio.currentTime = 0;
         },
         async run() {
             const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -138,7 +138,7 @@ export const useGlobalStore = defineStore("counter", {
                 await execute();
 
                 if (i === stopCount - 1) {
-                    this.playDrumAudio();
+                    this.playBellAudio();
                 } else {
                     this.stopFlipAudio();
                 }
