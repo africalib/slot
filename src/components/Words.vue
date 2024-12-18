@@ -4,9 +4,10 @@ import {useGlobalStore} from "@/stores/globalStore.js";
 
 const globalStore = useGlobalStore();
 const itemsRef = ref();
+const audioRef = ref();
 
 const setFrameStyle = () => {
-  const rect = itemsRef.value.querySelector(".item.pick").getBoundingClientRect();
+  const rect = itemsRef.value.querySelector(".item.pick")?.getBoundingClientRect();
 
   globalStore.setFrameStyle({
     display: "block",
@@ -34,6 +35,7 @@ onBeforeMount(() => {
 
 onMounted(() => {
   load();
+  globalStore.refs.audio = audioRef;
 });
 </script>
 
@@ -45,6 +47,9 @@ onMounted(() => {
         <div v-for="(w, idx) in globalStore.words" :class="{pick: idx === globalStore.pick.index}" class="item">{{ w }}</div>
       </div>
     </div>
+    <audio ref="audioRef">
+      <source src="/sound.mp3" type="audio/mpeg">
+    </audio>
   </div>
 </template>
 
@@ -83,6 +88,13 @@ onMounted(() => {
     border: var(--px10) solid #008551;
     border-radius: 4px;
     opacity: 1;
+  }
+
+  audio {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
   }
 }
 </style>

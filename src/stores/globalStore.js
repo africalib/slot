@@ -2,6 +2,9 @@ import {defineStore} from "pinia";
 
 export const useGlobalStore = defineStore("counter", {
     state: () => ({
+        refs: {
+            audio: null,
+        },
         spin: {
             running: false,
         },
@@ -41,6 +44,24 @@ export const useGlobalStore = defineStore("counter", {
         reset() {
             this.items.style.marginTop = 0;
             this.spin.running = false;
+            this.stopAudio();
+        },
+        playAudio() {
+            if (!this.refs.audio) {
+                return;
+            }
+
+            this.refs.audio.pause();
+            this.refs.audio.currentTime = 0;
+            this.refs.audio.play().catch();
+        },
+        stopAudio() {
+            if (!this.refs.audio) {
+                return;
+            }
+
+            this.refs.audio.pause();
+            this.refs.audio.currentTime = 0;
         },
         async run() {
             const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -91,7 +112,10 @@ export const useGlobalStore = defineStore("counter", {
 
             for (let i = 0; i < stopCount; i++) {
                 speed.resistance = Math.floor(speed.spin * (i + 1) / stopCount) - 1;
+
+                this.playAudio();
                 await execute();
+                i !== stopCount - 1 && this.stopAudio();
             }
 
             this.spin.running = false;
