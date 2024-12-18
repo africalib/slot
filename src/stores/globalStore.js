@@ -46,13 +46,15 @@ export const useGlobalStore = defineStore("counter", {
             this.spin.running = false;
             this.stopAudio();
         },
+        setAudioRef(ref) {
+            this.refs.audio = ref;
+        },
         playAudio() {
             if (!this.refs.audio) {
                 return;
             }
 
-            this.refs.audio.pause();
-            this.refs.audio.currentTime = 0;
+            this.stopAudio();
             this.refs.audio.play().catch();
         },
         stopAudio() {

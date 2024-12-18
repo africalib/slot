@@ -26,7 +26,11 @@ const push = (category) => {
 const select = (category = "") => {
   globalStore.reset();
   globalStore.setCategory(category);
-  category && globalStore.setWords(shuffle(JSON.parse(JSON.stringify(words[category]))));
+
+  if (category) {
+    globalStore.playAudio();
+    globalStore.setWords(shuffle(JSON.parse(JSON.stringify(words[category]))));
+  }
 };
 
 const run = () => {

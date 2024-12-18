@@ -3,12 +3,18 @@ import Words from "@/components/Words.vue";
 import Machine from "@/components/Machine.vue";
 import {useGlobalStore} from "@/stores/globalStore.js";
 import settings from "@/data/settings.js";
-import {nextTick, reactive, watch} from "vue";
+import {nextTick, onMounted, reactive, ref, watch} from "vue";
 
 const globalStore = useGlobalStore();
 
 const state = reactive({
   both: false,
+});
+
+const audioRef = ref();
+
+onMounted(() => {
+  globalStore.setAudioRef(audioRef);
 });
 
 watch(() => globalStore.category, (category) => {
@@ -37,6 +43,9 @@ watch(() => globalStore.category, (category) => {
         </div>
       </div>
     </div>
+    <audio ref="audioRef">
+      <source src="/sound.mp3" type="audio/mpeg">
+    </audio>
   </div>
 </template>
 
